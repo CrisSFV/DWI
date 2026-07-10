@@ -19,7 +19,6 @@
   const MIN_YEAR = CURRENT_YEAR - 120;
 
   function daysInMonth(month, year) {
-    // month: 1-12
     return new Date(year, month, 0).getDate();
   }
 
@@ -121,7 +120,6 @@
     const nacimiento = new Date(y, m - 1, d);
 
     // Validación de coherencia: la fecha construida debe corresponder
-    // exactamente a los valores elegidos (detecta desbordes de calendario)
     const esValida =
       nacimiento.getFullYear() === y &&
       nacimiento.getMonth() === m - 1 &&
