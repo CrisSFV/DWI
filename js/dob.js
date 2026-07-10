@@ -1,4 +1,5 @@
 (function () {
+  // Catálogo de meses usado para poblar el selector y mostrar textos legibles.
   const MESES = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -59,6 +60,7 @@
     const year = parseInt(yearSelect.value, 10) || CURRENT_YEAR;
     const total = (month >= 1 && month <= 12) ? daysInMonth(month, year) : 31;
 
+    // Reconstruye el selector cuando cambia mes o año para evitar fechas inválidas.
     const days = [];
     for (let d = 1; d <= total; d++) {
       days.push({ value: String(d), label: String(d).padStart(2, '0') });
@@ -90,6 +92,7 @@
     let months = hoy.getMonth() - nacimiento.getMonth();
     let days = hoy.getDate() - nacimiento.getDate();
 
+    // Ajuste calendario básico para normalizar el resultado final.
     if (days < 0) {
       months -= 1;
       // días transcurridos del mes anterior (no se muestran, solo ajustan meses)
@@ -129,6 +132,7 @@
       return;
     }
 
+    // Evita calcular fechas futuras, que no tienen sentido para este contador.
     if (nacimiento > today) {
       setError('La fecha de nacimiento no puede ser en el futuro.');
       return;

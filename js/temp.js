@@ -8,6 +8,7 @@
 
   if (!btn) return; // panel no presente
 
+  // Nombres y símbolos separados para construir mensajes y resultados legibles.
   const NOMBRES = { C: 'Celsius', F: 'Fahrenheit', K: 'Kelvin' };
   const SIMBOLOS = { C: '°C', F: '°F', K: 'K' };
 
@@ -18,6 +19,7 @@
 
   function actualizarEstadoBoton() {
     setError('');
+    // El botón solo se habilita cuando los tres campos tienen un valor válido.
     btn.disabled = !camposCompletos();
   }
 
@@ -25,13 +27,13 @@
     errorBox.textContent = msg || '';
   }
 
-  // --- Conversión: todo pasa por Celsius como unidad puente ---
+  // Las conversiones pasan por Celsius como unidad intermedia.
   function aCelsius(valor, unidad) {
     switch (unidad) {
       case 'C': return valor;
       case 'F': return (valor - 32) * (5 / 9);
       case 'K': return valor - 273.15;
-      default: return NaN;
+      default: return Number.NaN;
     }
   }
 
@@ -40,7 +42,7 @@
       case 'C': return celsius;
       case 'F': return (celsius * 9 / 5) + 32;
       case 'K': return celsius + 273.15;
-      default: return NaN;
+      default: return Number.NaN;
     }
   }
 
@@ -56,6 +58,7 @@
       return;
     }
 
+    // Paso intermedio común para simplificar las conversiones entre unidades.
     const celsius = aCelsius(valor, origen);
 
     // Validación física básica: no se admiten temperaturas por debajo

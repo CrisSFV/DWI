@@ -64,10 +64,12 @@
   function renderTasks() {
     list.innerHTML = '';
 
+    // Las tareas pendientes se muestran primero y las completadas quedan al final.
     const pendientes = tareas.filter(t => !t.completada);
     const completadas = tareas.filter(t => t.completada);
     const ordenadas = pendientes.concat(completadas);
 
+    // Cada render reconstruye la lista desde el estado en memoria.
     ordenadas.forEach(t => list.appendChild(crearItem(t)));
 
     emptyMsg.classList.toggle('hidden', tareas.length > 0);
@@ -85,6 +87,7 @@
     setError('');
     addTask(texto);
     input.value = '';
+    // Devuelve el cursor al campo para facilitar la captura de varias tareas seguidas.
     input.focus();
   });
 
