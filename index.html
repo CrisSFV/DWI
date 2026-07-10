@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banco de Instrumentos · Práctica DWI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="bench">
+
+  <header class="bench-header">
+    <div class="plate">
+      <span class="plate-serial">MOD.01–03</span>
+      <h1>Banco de Instrumentos</h1>
+      <p class="subtitle">Tres herramientas de medición, montadas en un solo tablero</p>
+    </div>
+  </header>
+
+  <nav class="switchboard" aria-label="Selector de instrumento">
+    <button class="switch active" data-target="panel-cronometro" type="button">
+      <span class="switch-led"></span>
+      <span class="switch-label">
+        <span class="switch-index">01</span>
+        Cronómetro vital
+      </span>
+    </button>
+    <button class="switch" data-target="panel-termico" type="button">
+      <span class="switch-led"></span>
+      <span class="switch-label">
+        <span class="switch-index">02</span>
+        Conversor térmico
+      </span>
+    </button>
+    <button class="switch" data-target="panel-tareas" type="button">
+      <span class="switch-led"></span>
+      <span class="switch-label">
+        <span class="switch-index">03</span>
+        Bitácora de tareas
+      </span>
+    </button>
+  </nav>
+
+  <main class="chassis">
+
+    <!-- ===================== PANEL 1: CRONÓMETRO VITAL ===================== -->
+    <section id="panel-cronometro" class="panel active" aria-labelledby="t-cronometro">
+      <div class="instrument">
+        <div class="instrument-bezel">
+          <span class="screw tl"></span><span class="screw tr"></span>
+          <span class="screw bl"></span><span class="screw br"></span>
+
+          <h2 id="t-cronometro">Cronómetro vital</h2>
+          <p class="instrument-desc">Marca tu fecha de nacimiento en el dial y el instrumento calculará el tiempo exacto transcurrido.</p>
+
+          <form id="dob-form" class="dial-form" novalidate>
+            <div class="dial-row">
+              <div class="dial-field">
+                <label for="dob-day">Día</label>
+                <select id="dob-day" required></select>
+              </div>
+              <div class="dial-field">
+                <label for="dob-month">Mes</label>
+                <select id="dob-month" required></select>
+              </div>
+              <div class="dial-field">
+                <label for="dob-year">Año</label>
+                <select id="dob-year" required></select>
+              </div>
+            </div>
+
+            <p id="dob-error" class="readout-error" role="alert" aria-live="polite"></p>
+
+            <button type="submit" class="btn-fire">Calcular tiempo</button>
+          </form>
+
+          <div id="dob-result" class="readout" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PANEL 2: CONVERSOR TÉRMICO ===================== -->
+    <section id="panel-termico" class="panel" aria-labelledby="t-termico">
+      <div class="instrument">
+        <div class="instrument-bezel gauge-bezel">
+          <span class="screw tl"></span><span class="screw tr"></span>
+          <span class="screw bl"></span><span class="screw br"></span>
+
+          <h2 id="t-termico">Conversor térmico</h2>
+          <p class="instrument-desc">Completa los tres campos para habilitar la aguja de conversión.</p>
+
+          <form id="temp-form" class="dial-form">
+            <div class="dial-field full">
+              <label for="temp-value">Valor numérico</label>
+              <input type="number" id="temp-value" step="any" placeholder="Ej. 36.5" inputmode="decimal">
+            </div>
+
+            <div class="dial-row">
+              <div class="dial-field">
+                <label for="temp-from">Unidad de origen</label>
+                <select id="temp-from">
+                  <option value="" selected disabled>Elegir…</option>
+                  <option value="C">Celsius (°C)</option>
+                  <option value="F">Fahrenheit (°F)</option>
+                  <option value="K">Kelvin (K)</option>
+                </select>
+              </div>
+              <div class="dial-field">
+                <label for="temp-to">Unidad de destino</label>
+                <select id="temp-to">
+                  <option value="" selected disabled>Elegir…</option>
+                  <option value="C">Celsius (°C)</option>
+                  <option value="F">Fahrenheit (°F)</option>
+                  <option value="K">Kelvin (K)</option>
+                </select>
+              </div>
+            </div>
+
+            <p id="temp-error" class="readout-error" role="alert" aria-live="polite"></p>
+
+            <button type="button" id="temp-btn" class="btn-fire" disabled>Convertir</button>
+          </form>
+
+          <div id="temp-result" class="readout" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PANEL 3: BITÁCORA DE TAREAS ===================== -->
+    <section id="panel-tareas" class="panel" aria-labelledby="t-tareas">
+      <div class="instrument">
+        <div class="instrument-bezel clipboard-bezel">
+          <span class="screw tl"></span><span class="screw tr"></span>
+          <span class="screw bl"></span><span class="screw br"></span>
+
+          <h2 id="t-tareas">Bitácora de tareas</h2>
+          <p class="instrument-desc">Las pendientes encabezan la lista; al completarlas bajan al archivo tachado.</p>
+
+          <form id="task-form" class="dial-form">
+            <div class="dial-field full task-input-row">
+              <label for="task-input">Nueva tarea</label>
+              <div class="input-with-button">
+                <input type="text" id="task-input" placeholder="Ej. Revisar módulo de triage" autocomplete="off" maxlength="140">
+                <button type="submit" class="btn-fire small">Agregar</button>
+              </div>
+            </div>
+          </form>
+
+          <p id="task-error" class="readout-error" role="alert" aria-live="polite"></p>
+
+          <ul id="task-list" class="task-list" aria-live="polite"></ul>
+          <p id="task-empty" class="task-empty">Sin tareas registradas todavía.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bench-footer">
+    <p>Práctica de laboratorio · Desarrollo Web I</p>
+  </footer>
+
+</div>
+
+<script src="js/dob.js"></script>
+<script src="js/temp.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
